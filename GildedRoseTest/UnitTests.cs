@@ -3,7 +3,7 @@ using GildedRoseLib;
 namespace GildedRoseTest;
 
 [TestClass]
-public class UnitTest1
+public class UnitTests
 {
     [TestMethod]
     public void FirstFooTest()

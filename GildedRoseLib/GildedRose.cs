@@ -13,11 +13,11 @@ public class GildedRose
     {
         for (var i = 0; i < _items.Count; i++)
         {
-            if (_items[i].Name != "Aged Brie" && _items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+            if (QualityShouldDecrease(_items[i]))
             {
                 if (_items[i].Quality > 0)
                 {
-                    if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
+                    if (ItemIsNotLegendary(_items[i]))
                     {
                         _items[i].Quality = _items[i].Quality - 1;
                     }
@@ -25,15 +25,15 @@ public class GildedRose
             }
             else
             {
-                if (_items[i].Quality < 50)
+                if (QualityLessThanMax(_items[i]))
                 {
                     _items[i].Quality = _items[i].Quality + 1;
 
-                    if (_items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+                    if (ItemIsBackstagePasses(_items[i]))
                     {
                         if (_items[i].SellIn < 11)
                         {
-                            if (_items[i].Quality < 50)
+                            if (QualityLessThanMax(_items[i]))
                             {
                                 _items[i].Quality = _items[i].Quality + 1;
                             }
@@ -41,7 +41,7 @@ public class GildedRose
 
                         if (_items[i].SellIn < 6)
                         {
-                            if (_items[i].Quality < 50)
+                            if (QualityLessThanMax(_items[i]))
                             {
                                 _items[i].Quality = _items[i].Quality + 1;
                             }
@@ -50,20 +50,20 @@ public class GildedRose
                 }
             }
 
-            if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
+            if (ItemIsNotLegendary(_items[i]))
             {
                 _items[i].SellIn = _items[i].SellIn - 1;
             }
 
-            if (_items[i].SellIn < 0)
+            if (SellByDateHasPassed(_items[i]))
             {
-                if (_items[i].Name != "Aged Brie")
+                if (ItemIsNotAgedBrie(_items[i]))
                 {
-                    if (_items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                    if (ItemIsNotBackstagePasses(_items[i]))
                     {
                         if (_items[i].Quality > 0)
                         {
-                            if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
+                            if (ItemIsNotLegendary(_items[i]))
                             {
                                 _items[i].Quality = _items[i].Quality - 1;
                             }
@@ -76,7 +76,7 @@ public class GildedRose
                 }
                 else
                 {
-                    if (_items[i].Quality < 50)
+                    if (QualityLessThanMax(_items[i]))
                     {
                         _items[i].Quality = _items[i].Quality + 1;
                     }
@@ -84,4 +84,39 @@ public class GildedRose
             }
         }
     }
+
+    private bool QualityShouldDecrease(Item item)
+    {
+        return item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert";
+    }
+
+    private bool ItemIsNotLegendary(Item item)
+    {
+        return item.Name != "Sulfuras, Hand of Ragnaros";
+    }    
+
+    private bool ItemIsNotAgedBrie(Item item)
+    {
+        return item.Name != "Aged Brie";
+    }    
+
+    private bool ItemIsNotBackstagePasses(Item item)
+    {
+        return item.Name != "Backstage passes to a TAFKAL80ETC concert";
+    }    
+
+    private bool ItemIsBackstagePasses(Item item)
+    {
+        return item.Name == "Backstage passes to a TAFKAL80ETC concert";
+    }    
+
+    private bool SellByDateHasPassed(Item item)
+    {
+        return item.SellIn < 0;
+    }    
+
+    private bool QualityLessThanMax(Item item)
+    {
+        return item.Quality < 50;
+    }    
 }
