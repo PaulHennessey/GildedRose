@@ -8,7 +8,7 @@ public class UnitTests
     [TestMethod]
     public void FirstFooTest()
     {
-        var items = new List<Item> { new Item { Name = "foo", SellIn = 3, Quality = 10 } };
+        var items = new List<Item> { new Item("foo", 3, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 1);
@@ -20,7 +20,7 @@ public class UnitTests
     [TestMethod]
     public void FooSellinGoesToZero()
     {
-        var items = new List<Item> { new Item { Name = "foo", SellIn = 3, Quality = 10 } };
+        var items = new List<Item> { new Item("foo", 3, 10 )};
         var app = new GildedRose(items);
 
         RunMethod(app, 3);
@@ -32,7 +32,7 @@ public class UnitTests
     [TestMethod]
     public void FooSellinGoesBelowZeroQualityDegradesTwiceAsFast()
     {
-        var items = new List<Item> { new Item { Name = "foo", SellIn = 3, Quality = 10 } };
+        var items = new List<Item> { new Item("foo", 3, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 6);
@@ -44,7 +44,7 @@ public class UnitTests
     [TestMethod]
     public void FooQualityNeverGoesBelowZero()
     {
-        var items = new List<Item> { new Item { Name = "foo", SellIn = 3, Quality = 10 } };
+        var items = new List<Item> { new Item ("foo", 3, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 7);
@@ -56,7 +56,7 @@ public class UnitTests
     [TestMethod]
     public void FirstBrieTest()
     {
-        var items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 3, Quality = 10 } };
+        var items = new List<Item> { new AgedBrie("Aged Brie", 3, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 1);
@@ -68,7 +68,7 @@ public class UnitTests
     [TestMethod]
     public void BrieQualityGoesToFifty()
     {
-        var items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 3, Quality = 47 } };
+        var items = new List<Item> { new AgedBrie("Aged Brie", 3, 47 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 3);
@@ -80,7 +80,7 @@ public class UnitTests
     [TestMethod]
     public void BrieQualityNeverGoesAboveFifty()
     {
-        var items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 3, Quality = 47 } };
+        var items = new List<Item> { new AgedBrie("Aged Brie", 3, 47 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 5);
@@ -91,7 +91,7 @@ public class UnitTests
     [TestMethod]
     public void SulfurasNeverChanges()
     {
-        var items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 } };
+        var items = new List<Item> { new Sulfuras ("Sulfuras, Hand of Ragnaros", 0, 80 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 2);
@@ -102,7 +102,7 @@ public class UnitTests
     [TestMethod]
     public void BackstagePassSellInGreaterThanTen()
     {
-        var items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 11, Quality = 10 } };
+        var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 11, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 1);
@@ -113,7 +113,7 @@ public class UnitTests
     [TestMethod]
     public void BackstagePassSellInIsTen()
     {
-        var items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 10, Quality = 10 } };
+        var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 10, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 1);
@@ -124,7 +124,7 @@ public class UnitTests
     [TestMethod]
     public void BackstagePassSellInIsFive()
     {
-        var items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 10 } };
+        var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 5, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 1);
@@ -135,7 +135,7 @@ public class UnitTests
     [TestMethod]
     public void BackstagePassSellInIsZero()
     {
-        var items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 10 } };
+        var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 0, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 1);
