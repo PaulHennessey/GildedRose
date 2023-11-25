@@ -14,24 +14,17 @@ public class Item
     }
 
     public virtual void ProcessItem()
-    {
-        if (QualityGreaterThanZero())
-        {
-            DecrementQuality();
-        }
-        else if (QualityLessThanMax())
-        {
-            IncrementQuality();
-        }
-        
+    {        
         DecrementSellByDate();
 
         if (PastSellByDate())
         {
-            if (QualityGreaterThanZero())
-            {
-                DecrementQuality();
-            }
+            DecrementQuality();
+            DecrementQuality();
+        }
+        else
+        {
+            DecrementQuality();
         }
     }
 
@@ -47,7 +40,7 @@ public class Item
 
     protected bool PastSellByDate()
     {
-        return this.SellIn < 0;
+        return this.SellIn <= 0;
     }    
 
     protected bool QualityLessThanMax()
@@ -55,13 +48,9 @@ public class Item
         return this.Quality < 50;
     }
 
-    private void DecrementQuality()
-    {
-        this.Quality -= 1;
+    protected virtual void DecrementQuality()
+    {      
+        if(this.Quality > 0)  
+            this.Quality -= 1;
     }    
-
-    private bool QualityGreaterThanZero()
-    {
-        return this.Quality > 0;
-    }            
 }

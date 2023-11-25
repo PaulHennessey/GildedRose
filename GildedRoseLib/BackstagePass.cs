@@ -6,27 +6,29 @@ public class BackstagePass : Item
     {}
 
     public override void ProcessItem()
-    {
-        if (QualityLessThanMax())
-        {
-            IncrementQuality();
-
-            if (SellByDateLessThanXDaysAway(11) && QualityLessThanMax())
-            {
-                IncrementQuality();
-            }
-
-            if (SellByDateLessThanXDaysAway(6) && QualityLessThanMax())
-            {
-                IncrementQuality();
-            }
-        }
-        
+    {        
         DecrementSellByDate();
 
         if (PastSellByDate())
         {
             SetQualityToZero();
+        }
+        else
+        {
+            if (QualityLessThanMax())
+            {
+                IncrementQuality();
+
+                if (SellByDateLessThanElevenDaysAway() && QualityLessThanMax())
+                {
+                    IncrementQuality();
+                }
+
+                if (SellByDateLessThanSixDaysAway() && QualityLessThanMax())
+                {
+                    IncrementQuality();
+                }
+            }
         }
     }
 
@@ -35,8 +37,13 @@ public class BackstagePass : Item
         this.Quality = this.Quality - this.Quality;
     }
 
-    private bool SellByDateLessThanXDaysAway(int days)
+    private bool SellByDateLessThanElevenDaysAway()
     {
-        return this.SellIn < days;
+        return this.SellIn < 11;
     }    
+
+    private bool SellByDateLessThanSixDaysAway()
+    {
+        return this.SellIn < 6;
+    }        
 }

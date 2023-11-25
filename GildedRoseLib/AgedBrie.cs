@@ -7,19 +7,16 @@ public class AgedBrie : Item
 
     public override void ProcessItem()
     {
+        DecrementSellByDate();
+
         if (QualityLessThanMax())
         {
             IncrementQuality();
         }
         
-        DecrementSellByDate();
-
-        if (PastSellByDate())
+        if (QualityLessThanMax() && PastSellByDate())
         {
-            if (QualityLessThanMax())
-            {
-                IncrementQuality();
-            }
+            IncrementQuality();
         }
     }
 }

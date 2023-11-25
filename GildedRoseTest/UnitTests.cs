@@ -6,6 +6,54 @@ namespace GildedRoseTest;
 public class UnitTests
 {
     [TestMethod]
+    public void FirstConjuredTest()
+    {
+        var items = new List<Item> { new Conjured("Conjured", 3, 16 ) };
+        var app = new GildedRose(items);
+
+        RunMethod(app, 1);
+
+        Assert.AreEqual(2, items[0].SellIn);
+        Assert.AreEqual(14, items[0].Quality);
+    }
+
+    [TestMethod]
+    public void ConjuredSellinGoesBelowZeroQualityDegradesTwiceAsFast()
+    {
+        var items = new List<Item> { new Conjured("Conjured", 3, 16 ) };
+        var app = new GildedRose(items);
+
+        RunMethod(app, 3);
+
+        Assert.AreEqual(0, items[0].SellIn);
+        Assert.AreEqual(8, items[0].Quality);
+    }        
+
+    [TestMethod]
+    public void ConjuredQualityGoesToZero()
+    {
+        var items = new List<Item> { new Conjured("Conjured", 3, 16 )};
+        var app = new GildedRose(items);
+
+        RunMethod(app, 5);
+
+        Assert.AreEqual(-2, items[0].SellIn);
+        Assert.AreEqual(0, items[0].Quality);
+    }    
+
+    [TestMethod]
+    public void ConjuredQualityNeverGoesBelowZero()
+    {
+        var items = new List<Item> { new Conjured("Conjured", 3, 16 )};
+        var app = new GildedRose(items);
+
+        RunMethod(app, 6);
+
+        Assert.AreEqual(-3, items[0].SellIn);
+        Assert.AreEqual(0, items[0].Quality);
+    }    
+
+    [TestMethod]
     public void FirstFooTest()
     {
         var items = new List<Item> { new Item("foo", 3, 10 ) };
@@ -26,7 +74,7 @@ public class UnitTests
         RunMethod(app, 3);
 
         Assert.AreEqual(0, items[0].SellIn);
-        Assert.AreEqual(7, items[0].Quality);
+        Assert.AreEqual(6, items[0].Quality);
     }    
 
     [TestMethod]
@@ -38,7 +86,7 @@ public class UnitTests
         RunMethod(app, 6);
 
         Assert.AreEqual(-3, items[0].SellIn);
-        Assert.AreEqual(1, items[0].Quality);
+        Assert.AreEqual(0, items[0].Quality);
     }        
 
     [TestMethod]
@@ -100,46 +148,46 @@ public class UnitTests
     }
 
     [TestMethod]
-    public void BackstagePassSellInGreaterThanTen()
+    public void BackstagePassSellInGreaterThanEleven()
+    {
+        var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 12, 10 ) };
+        var app = new GildedRose(items);
+
+        RunMethod(app, 1);
+        Assert.AreEqual(11, items[0].SellIn);
+        Assert.AreEqual(11, items[0].Quality);
+    }
+
+    [TestMethod]
+    public void BackstagePassSellInIsEleven()
     {
         var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 11, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 1);
         Assert.AreEqual(10, items[0].SellIn);
-        Assert.AreEqual(11, items[0].Quality);
-    }
-
-    [TestMethod]
-    public void BackstagePassSellInIsTen()
-    {
-        var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 10, 10 ) };
-        var app = new GildedRose(items);
-
-        RunMethod(app, 1);
-        Assert.AreEqual(9, items[0].SellIn);
         Assert.AreEqual(12, items[0].Quality);
     }
 
     [TestMethod]
-    public void BackstagePassSellInIsFive()
+    public void BackstagePassSellInIsSix()
     {
-        var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 5, 10 ) };
+        var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 6, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 1);
-        Assert.AreEqual(4, items[0].SellIn);
+        Assert.AreEqual(5, items[0].SellIn);
         Assert.AreEqual(13, items[0].Quality);
     }
 
     [TestMethod]
-    public void BackstagePassSellInIsZero()
+    public void BackstagePassSellInIsOne()
     {
-        var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 0, 10 ) };
+        var items = new List<Item> { new BackstagePass ("Backstage passes to a TAFKAL80ETC concert", 1, 10 ) };
         var app = new GildedRose(items);
 
         RunMethod(app, 1);
-        Assert.AreEqual(-1, items[0].SellIn);
+        Assert.AreEqual(0, items[0].SellIn);
         Assert.AreEqual(0, items[0].Quality);
     }    
 
